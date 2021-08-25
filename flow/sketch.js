@@ -5,7 +5,9 @@ var rows = 0
 var res = 0
 var c = 0
 var noise_scale = 0.2
-var xoff = yoff = zoff = 0
+var xoff = 0
+var yoff = 100
+var zoff = 0
 var inc = 0
 var prev_comet = coment = {
   x: 0,
@@ -156,7 +158,7 @@ function draw() {
   // }
 
   altitude = height*1*noise(zoff)
-  cometloc = cols*.3
+  cometloc = cols*noise(zoff)
 
   comet = {
     x: pxloc(c, cometloc).x,
@@ -208,5 +210,13 @@ function draw() {
 
   drawRocket(comet, cw, ch)
 
+  fill(255)
+  noStroke()
+  randomSeed(123)
+  for (i = 0; i < 100; i++) {
+    s = noise(i+xoff)*6
+    ellipse(random() * width, random() * height, s, s)
+    xoff += .0002
+  }
   zoff += inc
 }
